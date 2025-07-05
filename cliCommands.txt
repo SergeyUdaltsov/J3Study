@@ -1,0 +1,7 @@
+docker ps                                                                  - check all running docker containers
+docker exec -it <container-name> bash                                      - log into docker container. You can use container-name or first 4 symbols of container id
+java --version 					                                           - check java version
+terraform -v 				                                        	   - check terraform version
+aws --version					                                           - check AWS cli version
+sudo -i 					                                               - executes commands as super user
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword     - prints initial Jenkins password
