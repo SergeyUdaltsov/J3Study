@@ -1,0 +1,30 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform Deploy') {
+            steps {
+                dir('terraform/infra') {
+                    sh """
+                        echo "Initializing Terraform"
+                        rm -rf .terraform
+                        terraform init -backend-config="key=j3-infra/terraform.tfstate" -input=false -reconfigure
+
+                        echo "Planning Terraform apply"
+                        terraform plan -input=false -out=tfplan
+                        terraform show tfplan
+                        terraform apply tfplan
+                    """
+                }
+            }
+        }
+    }
+}
