@@ -33,7 +33,7 @@ pipeline {
                     docker build -t ${ECR_REPO}:${IMAGE_TAG} .
 
                     echo "Logging into AWS ECR..."
-                    aws --region ${AWS_REGION} ecr get-login-password | docker login --username AWS --password-stdin ${ECR_REPO}
+                    aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin ${ECR_REPO}
 
                     echo "Pushing Docker image to ECR..."
                     docker push ${ECR_REPO}:${IMAGE_TAG}
